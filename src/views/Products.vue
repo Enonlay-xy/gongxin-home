@@ -2,8 +2,8 @@
   <section id="products" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">产品服务</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">我们提供全方位的技术解决方案</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ $t('products_title') }}</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">{{ $t('products_desc') }}</p>
       </div>
       <div class="flex flex-wrap justify-center gap-4 mb-12">
         <button v-for="category in categories" :key="category.id"
@@ -12,25 +12,25 @@
                          activeCategory === category.id 
                            ? 'bg-primary-600 text-white' 
                            : 'bg-white text-gray-600 hover:bg-gray-100']">
-          {{ category.name }}
+          {{ $t(category.nameKey) }}
         </button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="product in filteredProducts" :key="product.name"
+        <div v-for="product in filteredProducts" :key="product.nameKey"
              class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
           <div class="aspect-video bg-gradient-to-br from-primary-50 to-primary-100 overflow-hidden flex items-center justify-center">
             <component :is="product.icon" class="w-16 h-16 text-primary-400" />
           </div>
           <div class="p-6">
             <div class="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-3">
-              {{ product.category }}
+              {{ $t(product.catKey) }}
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ product.name }}</h3>
-            <p class="text-gray-600 mb-4">{{ product.description }}</p>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ $t(product.nameKey) }}</h3>
+            <p class="text-gray-600 mb-4">{{ $t(product.descKey) }}</p>
             <ul class="space-y-2 text-sm text-gray-500">
-              <li v-for="feature in product.features" :key="feature" class="flex items-center">
+              <li v-for="featureKey in product.featureKeys" :key="featureKey" class="flex items-center">
                 <Check class="w-4 h-4 text-green-500 mr-2" />
-                {{ feature }}
+                {{ $t(featureKey) }}
               </li>
             </ul>
           </div>
@@ -45,62 +45,62 @@ import { ref, computed, markRaw } from 'vue'
 import { Check, Server, HardDrive, ShieldCheck, Lock, BarChart3, Brain } from 'lucide-vue-next'
 
 const categories = [
-  { id: 'all', name: '全部' },
-  { id: 'cloud', name: '云计算' },
-  { id: 'security', name: '信息安全' },
-  { id: 'data', name: '大数据' }
+  { id: 'all', nameKey: 'all' },
+  { id: 'cloud', nameKey: 'cloud_computing' },
+  { id: 'security', nameKey: 'info_security_cat' },
+  { id: 'data', nameKey: 'big_data_cat' }
 ]
 
 const activeCategory = ref('all')
 
 const products = [
   {
-    name: '云服务器',
-    category: '云计算',
+    nameKey: 'cloud_server',
+    catKey: 'cloud_computing',
     categoryId: 'cloud',
     icon: markRaw(Server),
-    description: '弹性可扩展的云服务器，满足企业不同规模的计算需求',
-    features: ['弹性伸缩', '高可用性', '安全可靠']
+    descKey: 'cloud_server_desc',
+    featureKeys: ['feature_elastic', 'feature_ha', 'feature_secure']
   },
   {
-    name: '云存储',
-    category: '云计算',
+    nameKey: 'cloud_storage',
+    catKey: 'cloud_computing',
     categoryId: 'cloud',
     icon: markRaw(HardDrive),
-    description: '安全可靠的云存储服务，随时随地访问您的数据',
-    features: ['无限容量', '数据加密', '跨区域同步']
+    descKey: 'cloud_storage_desc',
+    featureKeys: ['feature_unlimited', 'feature_encryption', 'feature_sync']
   },
   {
-    name: '网络安全',
-    category: '信息安全',
+    nameKey: 'network_security',
+    catKey: 'info_security_cat',
     categoryId: 'security',
     icon: markRaw(ShieldCheck),
-    description: '全方位的网络安全解决方案，保护企业网络安全',
-    features: ['实时监控', '威胁检测', '安全审计']
+    descKey: 'network_security_desc',
+    featureKeys: ['feature_monitor', 'feature_threat', 'feature_audit']
   },
   {
-    name: '数据加密',
-    category: '信息安全',
+    nameKey: 'data_encryption',
+    catKey: 'info_security_cat',
     categoryId: 'security',
     icon: markRaw(Lock),
-    description: '企业级数据加密服务，确保数据安全存储和传输',
-    features: ['AES加密', '密钥管理', '合规认证']
+    descKey: 'data_encryption_desc',
+    featureKeys: ['feature_aes', 'feature_key', 'feature_compliance']
   },
   {
-    name: '大数据分析',
-    category: '大数据',
+    nameKey: 'big_data_analytics',
+    catKey: 'big_data_cat',
     categoryId: 'data',
     icon: markRaw(BarChart3),
-    description: '强大的大数据分析平台，洞察业务数据价值',
-    features: ['数据挖掘', '智能分析', '可视化报表']
+    descKey: 'big_data_analytics_desc',
+    featureKeys: ['feature_mining', 'feature_analysis', 'feature_viz']
   },
   {
-    name: 'AI智能平台',
-    category: '大数据',
+    nameKey: 'ai_platform',
+    catKey: 'big_data_cat',
     categoryId: 'data',
     icon: markRaw(Brain),
-    description: '基于人工智能的智能分析平台，助力企业智能化升级',
-    features: ['机器学习', '预测分析', '智能推荐']
+    descKey: 'ai_platform_desc',
+    featureKeys: ['feature_ml', 'feature_prediction', 'feature_recommend']
   }
 ]
 
