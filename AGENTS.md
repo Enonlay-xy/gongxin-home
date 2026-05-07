@@ -61,6 +61,24 @@ gongxin-home/
 4. **多语言**：所有文本通过 `$t(key)` 引用，key 命名使用 snake_case
 5. **IP 检测**：使用 `ipapi.co` 免费 API，结果缓存到 localStorage
 
+## 文档规则
+
+AI 生成的开发计划和设计文档必须存储在 `docs/` 目录中：
+
+```
+docs/
+├── superpowers/
+│   ├── specs/                    # 技术设计文档
+│   │   └── YYYY-MM-DD-<主题>-design.md
+│   └── plans/                    # 实现计划文档
+│       └── YYYY-MM-DD-<主题>-plan.md
+└── README.md                     # 项目文档索引（可选）
+```
+
+**命名规则：**
+- 设计文档：`docs/superpowers/specs/YYYY-MM-DD-<主题>-design.md`
+- 实现计划：`docs/superpowers/plans/YYYY-MM-DD-<主题>-plan.md`
+
 ## 页面结构
 
 | id | 页面 | 说明 |
