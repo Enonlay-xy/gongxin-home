@@ -9,7 +9,8 @@ description: 国信科技门户网站 — 项目专属 AI 编码规则
 
 国信科技公司门户网站，纯前端展示型项目。
 
-**在线地址：** http://localhost:5173/
+**本地开发：** http://localhost:5173/
+**生产环境：** https://gongxin-home.vercel.app/（Vercel 部署）
 
 ## 技术栈
 
