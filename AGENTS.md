@@ -1,6 +1,6 @@
 ---
 name: gongxin-home
-description: 国信科技门户网站 — 项目专属 AI 编码规则
+description: 东莞市公信检测技术有限公司门户网站 — 项目专属 AI 编码规则
 ---
 
 # gongxin-home
