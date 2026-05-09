@@ -1,5 +1,37 @@
-# Vue 3 + Vite
+# gongxin-home
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+东莞市公信检测技术有限公司门户网站，纯前端展示型项目。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 项目功能
+
+- **首页展示**：公司简介、核心业务、企业优势
+- **关于我们**：公司概况、发展历程、企业文化
+- **产品服务**：检测服务分类展示与筛选
+- **联系我们**：联系方式与在线留言表单
+- **多语言支持**：简体中文、繁体中文、英文自动切换
+
+## 访问地址
+
+| 环境 | 地址 |
+|------|------|
+| 生产环境 | https://gongxin-home.vercel.app/ |
+| 本地开发 | http://localhost:5173/ |
+
+## 技术栈
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| Vue | 3.4+ | 前端框架 |
+| Vite | 6.5+ | 构建工具 |
+| Tailwind CSS | 3.4+ | CSS 框架 |
+| Lucide Vue Next | ^0.2 | 图标库 |
+| vue-i18n | 9 | 多语言支持 |
+
+## 本地部署
+
+```bash
+npm install          # 安装依赖
+npm run dev          # 启动开发服务器（http://localhost:5173）
+npm run build        # 生产构建
+npm run preview      # 预览生产构建
+```
