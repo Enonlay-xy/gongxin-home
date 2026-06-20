@@ -8,10 +8,9 @@
 
       <!-- 滑动轨道 -->
       <div class="flex h-full transition-transform duration-700 ease-out motion-reduce:transition-none"
-           :style="{ transform: `translateX(-${current * (100 / slides.length)}%)` }">
+           :style="{ transform: `translateX(-${current * 100}%)` }">
         <div v-for="(slide, i) in slides" :key="i"
-             class="relative h-full shrink-0"
-             :style="{ width: `${100 / slides.length}%` }"
+             class="relative h-full w-full shrink-0"
              :aria-hidden="current !== i">
           <img :src="slide.image" :alt="$t(slide.titleKey)"
                class="w-full h-full object-cover" loading="eager" />
