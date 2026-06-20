@@ -107,10 +107,11 @@ gongxin-home/
 
 - **形式**：全宽轮播，3-4 张图，自动播放（5 秒间隔）+ 手动切换 + 指示器圆点
 - **图片**：使用 `设计素材/公司照片/` 与 `设计素材/实验室图片/` 中的真实照片
-- **文案**（来自宣传手册）：
-  - 图 1：主标题"公信检测，全球认证" + 副标题"专业进出口商品检测认证服务平台" + 按钮"了解我们"
-  - 图 2：主标题"一次测试，多证通行" + 副标题"助力中国制造，通达全球市场" + 按钮"查看服务"
-  - 图 3：主标题"国际权威合作实验室" + 副标题"TUV南德/莱茵 · CSA · CQC · Intertek" + 按钮"查看资质"
+- **文案与配图**（来自宣传手册，文案与图片语义匹配）：
+  - 图 1：配 `公司照片/公司前台.jpg`，主标题"公信检测，全球认证" + 副标题"专业进出口商品检测认证服务平台" + 按钮"了解我们"
+  - 图 2：配 `公司照片/实验室.jpg`，主标题"一次测试，多证通行" + 副标题"助力中国制造，通达全球市场" + 按钮"查看服务"
+  - 图 3：配 `实验室图片/TUV南德、莱茵合作实验室.png`，主标题"国际权威合作实验室" + 副标题"TUV南德/莱茵 · CSA · CQC · Intertek" + 按钮"查看资质"
+  - 图 4（可选）：配 `实验室图片/电磁兼容实验室.png`，主标题"CNAS 认可核心实验室" + 副标题"EMC · 安规 · 化学 · 射频 全面检测能力" + 按钮"了解能力"
 - **视觉**：深蓝渐变遮罩（从左到右 `from-primary-900/70`）+ 左对齐白色文案
 - **移动端**：高度自适应（`h-64`），文案字号缩小，副标题可隐藏
 - **组件实现**：自建轻量轮播（不引第三方库），用 `setInterval` + Vue `<transition>` 实现淡入淡出效果
@@ -131,8 +132,8 @@ gongxin-home/
 
 ### 3.5 模块 4：核心优势（新建）
 
-- **形式**：深蓝背景全宽区块，数据卡片网格（4 列桌面 / 2 列平板 / 1 列移动）
-- **内容**（来自宣传手册"核心优势"区块）：
+- **形式**：深蓝背景全宽区块，数据卡片网格（桌面 1 行 5 列 / 平板 2-3 列 / 移动 2 列）
+- **内容**（来自宣传手册"核心优势"区块，共 5 项数据）：
 
 | 数据 | 标签 |
 |------|------|
@@ -141,7 +142,8 @@ gongxin-home/
 | 8 | 大认证品类 |
 | 300+ | 社会荣誉 |
 | 100+ | 服务企业客户 |
-| 6 | 核心实验室 |
+
+> 注：宣传手册原文未给出"核心实验室数量"作为数据卡，实验室数量在"资质与合作实验室"模块以实际展示体现，此处不重复。
 
 - **视觉**：大字号数字（`text-4xl font-bold text-accent`）+ 小字标签，卡片半透明白底
 - **底部标语**：居中显示"CNAS/CE/A2LA/FCC/CSA 权威资质 · TUV南德/莱茵/SGS 等授权 · AI 助力检测认证流程"
@@ -149,8 +151,8 @@ gongxin-home/
 
 ### 3.6 模块 5：服务项目 Tab（新建，核心模块）
 
-- **形式**：Tab 切换，参考安信的"认证项目/体系项目/检测项目"分类
-- **Tab 分类**（基于宣传手册"认证服务与范围"）：
+- **形式**：Tab 切换
+- **Tab 分类**（基于宣传手册"认证服务与范围"重新归类；与参考站安信"认证/体系/功效"分类不同，因公信业务无体系认证与功效医疗，故按"国际/国内/检测"维度划分）：
 
 **Tab 1 — 国际认证**（宣传手册列出的认证清单）：
 CE / FCC / CB / UL / ETL / CSA / SAA / GS / PSE / TUV-Mark / CEC / UKCA
@@ -193,18 +195,20 @@ const serviceTabs = [
 ### 3.7 模块 6：服务领域（新建）
 
 - **形式**：网格卡片（桌面 4 列，平板 2 列，移动 1 列），每张卡 = 产品图 + 领域名称 + 简述
-- **8 大服务品类**（来自宣传手册）：
+- **8 大服务品类**（来自宣传手册第 1 页"8 大服务品类"标签 + "服务介绍"图例综合）：
 
 | 序号 | 领域 | 简述（来自宣传手册） |
 |------|------|------|
 | 1 | 电子电器 | 专注于电子电器产品的检测与认证，获 CNAS、A2LA、FCC、TUV、Intertek 等资质 |
 | 2 | 音视频类 | 个人计算机、打印机、传真机等 IT 类产品检测认证 |
-| 3 | 锂电池类 | 手机、笔记本、无人机、移动电源、电子烟等锂电池检测 |
+| 3 | 锂电池类 | 手机、笔记本、无人机、移动电源、电子烟等消费类锂电池检测 |
 | 4 | 机械设备 | 电动工具、园林机械、数控机床、包装机械等检测 |
 | 5 | 灯具类 | LED 灯具、节能灯、筒灯等成品灯具及核心组件检测 |
 | 6 | 玩具 | 玩具产品出口认证（EN 71 等） |
 | 7 | 建筑建材 | 建材出口中东等市场认证 |
-| 8 | 电池 | 电池产品出口各国认证 |
+| 8 | 动力电池 | 动力电池/储能电池产品出口各国认证（与消费类锂电池区分） |
+
+> 注：宣传手册"8 大服务品类"图例含"锂电池"与"电池"两项，为避免语义重叠，本设计将第 8 项明确为"动力电池"。若实际业务中两项确为同一品类，可合并为 7 品类并调整网格布局。
 
 - **素材**：`设计素材/一些可参考的官方图片/` 中的 JPG
 - **交互**：卡片悬浮放大图片 + 显示"查看详情"遮罩
@@ -250,16 +254,26 @@ CNAS / A2LA / FCC / CSA / TUV SUD / TUV Rheinland / CQC / CEC / Intertek
 
 ### 3.10 模块 9：典型案例（新建）
 
-- **形式**：案例卡片网格（3 列桌面 / 1 列移动），每张卡含项目信息 + 客户评价
-- **3 个典型案例**（来自宣传手册"典型案例"）：
+- **形式**：案例卡片网格（3 列桌面 / 1 列移动），每张卡含项目信息
+- **3 个典型案例**（来自宣传手册"典型案例"，项目信息按 OCR 原文保留）：
 
-| 案例 | 项目类型 | 客户需求 | 服务内容 | 认证结果 | 客户评价 |
-|------|----------|----------|----------|----------|----------|
-| 案例 1 | 数控机床出口北美 | CE+ROHS 认证 | 安规+EMC+光性能+化学 | 获 UL 认证 | "专业高效，帮我们顺利拿到 CE 认证，产品已成功进入德国市场。" —某东莞机械企业客户 |
-| 案例 2 | 玩具出口欧盟 | EN 71 全项 | 物理+燃烧+化学 | 顺利清关 | "公信团队响应很快，从测试到拿到 FCC 证书只用了 3 周，非常满意。" —某深圳电子企业客户 |
-| 案例 3 | 建材出口中东 | CE+ROHS 认证 | 机械安全+EMC / 物理性能+化学 | 顺利清关 | （同上评价池） |
+| 案例 | 项目类型 | 客户需求 | 服务内容 | 认证结果 |
+|------|----------|----------|----------|----------|
+| 案例 1 | 数控机床出口北美 | CE+ROHS 认证 | 安规+EMC+光性能+化学 | 获 UL 认证 |
+| 案例 2 | 玩具出口欧盟 | EN 71 全项 | 物理+燃烧+化学 | 顺利清关 |
+| 案例 3 | 建材出口中东 | CE+ROHS 认证 | 机械安全+EMC / 物理性能+化学 | 顺利清关 |
 
-- **视觉**：卡片顶部标签（项目类型）+ 中部表格（需求/内容/结果）+ 底部引用块（客户评价）
+- **客户评价**（独立展示区，不强行对应具体案例，避免 OCR 解析的对应关系错误）：
+
+> "专业高效，帮我们顺利拿到 CE 认证，产品已成功进入德国市场。"
+> — 某东莞机械企业客户
+
+> "公信团队响应很快，从测试到拿到 FCC 证书只用了 3 周，非常满意。"
+> — 某深圳电子企业客户
+
+> 注：宣传手册 OCR 中案例与评价的对应关系存在矛盾（如"玩具出口欧盟"配"FCC 证书"评价），故评价独立展示。待用户提供真实对应关系后可调整为一一对应。
+
+- **视觉**：案例卡片顶部标签（项目类型）+ 中部表格（需求/内容/结果）；评价区用引用块样式横向排列
 - **二期入口**：底部"查看更多案例"按钮预留
 
 ### 3.11 模块 10：联系 CTA（改造现有 Contact 区块）
@@ -295,13 +309,16 @@ CNAS / A2LA / FCC / CSA / TUV SUD / TUV Rheinland / CQC / CEC / Intertek
 更新 `tailwind.config.js` 的 `primary` 色板：
 
 ```
-primary（深蓝）:
+primary（深蓝，基于 Tailwind blue 色阶调整）:
   - primary-50:  #eff6ff  (浅底背景)
   - primary-100: #dbeafe  (浅色徽章)
   - primary-200: #bfdbfe
+  - primary-300: #93c5fd
+  - primary-400: #60a5fa
   - primary-500: #1e40af  (主按钮 / 标题)
-  - primary-600: #1e3a8a  (悬浮态)
-  - primary-700: #1e3a8a  (深色区块)
+  - primary-600: #1e3a8a  (悬浮态，比 500 更深)
+  - primary-700: #1e3a8a  (深色区块背景)
+  - primary-800: #172554
   - primary-900: #0f172a  (Footer / CTA 背景)
 
 辅助色:
@@ -316,6 +333,8 @@ primary（深蓝）:
   - danger  #dc2626
 ```
 
+> 注：primary-600 与 primary-700 同色为有意设计（悬浮态与深色区块视觉一致），若需严格递进可将 700 改为 `#172554`。
+
 ### 4.2 字体与排版
 
 - **中文字体**：`"PingFang SC", "Microsoft YaHei", sans-serif`（系统字体栈，零加载成本）
@@ -325,7 +344,7 @@ primary（深蓝）:
   - H2：`text-3xl md:text-4xl font-bold text-gray-900`
   - H3：`text-xl font-semibold text-gray-900`
 - **正文**：`text-base text-gray-600 leading-relaxed`
-- **章节标题样式**：统一"中文标题 + 英文副标题"双行样式（参考安信风格），如"关于我们 / About Us"，下方加短装饰线
+- **章节标题样式**：统一"中文标题 + 英文副标题"双行样式，**居中对齐**，如"关于我们 / About Us"，下方加短装饰线（参考安信的双语标题形式，但采用居中布局以匹配整体设计）
 
 ### 4.3 间距与布局
 
@@ -454,19 +473,101 @@ src/
 
 | 模块 | 素材来源 | 用途 |
 |------|----------|------|
-| Logo | `设计素材/公司logo/115a0af6e070ff1f01405d8abe0a163b.png` | Header 品牌 |
+| Logo（主） | `设计素材/公司logo/115a0af6e070ff1f01405d8abe0a163b.png` | Header 品牌 |
+| Logo（备） | `设计素材/公司logo/ccc047662b2f1fd5501452abf4093daa.png` | 备用（Footer 或深色背景版） |
 | Banner 图 1 | `设计素材/公司照片/公司前台.jpg` | 轮播主图 |
 | Banner 图 2 | `设计素材/公司照片/实验室.jpg` | 轮播主图 |
-| Banner 图 3 | `设计素材/实验室图片/安规实验室.png` | 轮播主图 |
+| Banner 图 3 | `设计素材/实验室图片/TUV南德、莱茵合作实验室.png` | 轮播主图 |
 | Banner 图 4 | `设计素材/实验室图片/电磁兼容实验室.png` | 轮播主图 |
 | 关于我们 | `设计素材/公司照片/公司前台.jpg` | 简介配图 |
-| 服务领域 | `设计素材/一些可参考的官方图片/*.jpg` | 领域卡片图 |
+| 服务领域 | `设计素材/一些可参考的官方图片/*.jpg`（4 张） | 领域卡片图（4 张图对应 4 个主要领域，其余领域用纯色卡占位） |
 | 资质-EMC 实验室 | `设计素材/实验室图片/电磁兼容实验室.png` | 实验室展示 |
 | 资质-化学实验室 | `设计素材/实验室图片/化学实验室.png` | 实验室展示 |
-| 资质-安规实验室 | `设计素材/实验室图片/安规实验室.png`、`安规实验室2.png` | 实验室展示 |
+| 资质-安规实验室 | `设计素材/实验室图片/安规实验室.png`、`安规实验室2.png` | 实验室展示（2 张可择一或组合） |
 | 资质-TUV 合作 | `设计素材/实验室图片/TUV南德、莱茵合作实验室.png` | 合作展示 |
 | 资质-CSA 合作 | `设计素材/实验室图片/加拿大CSA合作实验室.png` | 合作展示 |
 | 资质-CQC 合作 | `设计素材/实验室图片/中国质量认证中心CQC合作实验室.png` | 合作展示 |
+
+**未使用素材说明**：
+- `设计素材/公司照片/公司培训.jpg`、`收发件.jpg`：一期未规划使用，可在二期"关于我们详情页"或"公司风采"模块使用
+- `设计素材/一些可参考的官方图片/` 4 张 JPG 具体对应：因图片为参考性质，实施时需根据图片实际内容匹配到电子电器/灯具/机械/玩具等具体领域
+
+### 6.4 i18n key 完整清单（zh-CN）
+
+实施时需在 `src/i18n/locales/zh-CN.json` 补充以下 key（同样需同步 zh-TW.json 与 en.json）：
+
+```
+# Header
+nav_home, nav_about, nav_strengths, nav_products, nav_fields, nav_process,
+nav_qualifications, nav_cases, nav_contact, phone_label
+
+# Banner
+banner_1_title, banner_1_subtitle, banner_1_btn
+banner_2_title, banner_2_subtitle, banner_2_btn
+banner_3_title, banner_3_subtitle, banner_3_btn
+banner_4_title, banner_4_subtitle, banner_4_btn
+
+# 关于我们
+about_title, about_subtitle, about_desc_1, about_desc_2, about_btn
+
+# 核心优势
+strengths_title, strengths_subtitle
+strengths_intl_auth, strengths_cert_projects, strengths_categories,
+strengths_honors, strengths_clients, strengths_tagline
+
+# 服务项目
+service_tab_international, service_tab_domestic, service_tab_testing
+cert_ce, cert_ce_desc, cert_fcc, cert_fcc_desc, cert_cb, cert_cb_desc,
+cert_ul, cert_ul_desc, cert_etl, cert_etl_desc, cert_csa, cert_csa_desc,
+cert_saa, cert_gs, cert_pse, cert_tuv, cert_cec, cert_ukca,
+cert_ccc, cert_ccc_desc, cert_cqc, cert_cqc_desc,
+test_emc, test_emc_desc, test_lvd, test_lvd_desc, test_rf, test_rf_desc,
+test_rohs, test_rohs_desc, test_mech, test_mech_desc, test_light, test_light_desc
+
+# 服务领域
+field_title, field_subtitle
+field_1_name, field_1_desc, field_2_name, field_2_desc, ... field_8_name, field_8_desc
+
+# 服务流程
+process_title, process_subtitle
+process_1_title, process_1_desc, process_2_title, process_2_desc,
+process_3_title, process_3_desc, process_4_title, process_4_desc,
+process_5_title, process_5_desc
+
+# 资质与合作实验室
+qual_title, qual_subtitle, qual_certs_title, qual_labs_title
+lab_emc, lab_emc_desc, lab_chem, lab_chem_desc, lab_safety, lab_safety_desc,
+lab_tuv, lab_tuv_desc, lab_csa, lab_csa_desc, lab_cqc, lab_cqc_desc
+
+# 典型案例
+case_title, case_subtitle
+case_1_type, case_1_need, case_1_service, case_1_result
+case_2_type, case_2_need, case_2_service, case_2_result
+case_3_type, case_3_need, case_3_service, case_3_result
+case_quote_1, case_quote_1_from, case_quote_2, case_quote_2_from
+case_more_btn
+
+# 联系 CTA
+cta_title, cta_phone_label, cta_email_label, cta_website_label, cta_address_label
+cta_form_name, cta_form_phone, cta_form_message, cta_form_submit, cta_form_success
+
+# Footer
+footer_company, footer_company_en, footer_copyright, footer_icp
+```
+
+### 6.5 验收策略
+
+实施完成后需通过以下验收：
+
+| 验收项 | 方法 |
+|--------|------|
+| 视觉对照 | 与参考站安信的关键模块（Banner/Tab/服务领域/资质）布局对照 |
+| i18n 完整性 | 切换简体/繁体/英文三语，确认无 key 缺失（显示原始 key 而非翻译） |
+| 移动端断点 | 在 375px（iPhone SE）/ 768px（iPad）/ 1024px / 1440px 四个宽度手测 |
+| 电话链接 | 点击 Header 与 CTA 的电话按钮，确认唤起拨号 |
+| 图片加载 | 所有图片正常显示，alt 文案存在 |
+| 体积预算 | Lighthouse 审计，首屏图片合计 < 2MB |
+| A11y | Lighthouse Accessibility 评分 ≥ 90 |
 
 ---
 
@@ -479,6 +580,10 @@ src/
 5. **内容来自宣传手册**：公司简介、认证清单、服务领域、实验室说明、典型案例等均为宣传手册真实内容，非占位
 6. **二期详情页入口**：一期"查看更多"按钮做占位（样式保留，点击提示"即将上线"）
 7. **11 个模块**：在原 8 模块基础上，根据宣传手册内容新增"核心优势""服务流程""典型案例"三个模块
+8. **服务项目 Tab 分类调整**：因公信业务无体系认证与功效医疗，将参考站"认证/体系/功效"分类调整为"国际认证/国内认证/检测项目"
+9. **典型案例评价独立展示**：OCR 提取的案例与评价对应关系存在矛盾，评价独立展示，待用户提供真实对应关系
+10. **服务领域 8 品类**：宣传手册"锂电池"与"电池"两项可能重叠，本设计将第 8 项明确为"动力电池"，待用户确认
+11. **核心优势 5 项数据**：严格按宣传手册原文，不自行添加"实验室数量"数据卡
 
 ---
 
