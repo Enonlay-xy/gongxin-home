@@ -1,9 +1,9 @@
 <template>
   <section id="home" class="relative" role="region" aria-label="banner 轮播">
     <div class="relative h-[400px] md:h-[500px] overflow-hidden">
-      <transition name="fade" mode="out-in">
-        <div v-for="(slide, i) in slides" :key="i" v-show="current === i"
-             class="absolute inset-0">
+      <div v-for="(slide, i) in slides" :key="i" v-show="current === i"
+           class="absolute inset-0 transition-opacity duration-700"
+           :class="current === i ? 'opacity-100' : 'opacity-0'">
           <img :src="slide.image" :alt="$t(slide.titleKey)"
                class="w-full h-full object-cover" />
           <div class="absolute inset-0 bg-gradient-to-r from-primary-900/70 to-primary-900/30"></div>
@@ -20,7 +20,6 @@
             </div>
           </div>
         </div>
-      </transition>
 
       <!-- 指示器 -->
       <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
@@ -76,12 +75,3 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
 })
 </script>
-
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.8s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-</style>
