@@ -1,11 +1,8 @@
 <template>
   <div class="min-h-screen">
     <Header />
-    <main>
+    <main class="pt-16">
       <Home />
-      <About />
-      <Products />
-      <Contact />
     </main>
     <Footer />
   </div>
@@ -15,14 +12,14 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Products from './views/Products.vue'
-import Contact from './views/Contact.vue'
 </script>
 
 <style>
 body {
   margin: 0;
   padding: 0;
+}
+html {
+  scroll-behavior: smooth;
 }
 </style>
