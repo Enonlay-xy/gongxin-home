@@ -4,6 +4,7 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
           <img src="../assets/images/logo/logo.png" :alt="$t('company')" class="h-10 w-auto" />
+          <span class="ml-3 text-lg font-bold text-primary-600">{{ $t('company') }}</span>
         </div>
 
         <nav class="hidden lg:flex items-center space-x-6" role="navigation">

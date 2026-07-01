@@ -9,15 +9,15 @@
       <div
         v-if="isExpanded"
         key="expanded"
-        class="relative bg-primary-100 border border-primary-200 border-r-0 rounded-l-2xl px-3 py-3.5 w-[84px] shadow-[-4px_4px_16px_rgba(30,64,175,0.15)]"
+        class="relative bg-primary-100 border border-primary-200 border-r-0 rounded-l-2xl px-3 py-3.5 w-[84px] shadow-[-4px_4px_16px_rgba(30,64,175,0.15)] origin-right"
       >
         <!-- 关闭按钮 -->
         <button
           @click="isExpanded = false"
-          class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-md hover:bg-primary-700 transition-colors"
+          class="absolute top-[14.29%] -left-3 w-5 h-5 rounded-full bg-primary-600 text-white flex items-center justify-center shadow-md hover:bg-primary-700 transition-colors"
           :aria-label="$t('sidebar_collapsed_label')"
         >
-          <X class="w-3 h-3" />
+          <ChevronsRight class="w-3.5 h-3.5" />
         </button>
 
         <!-- 按钮列表 -->
@@ -86,10 +86,10 @@
         v-else
         key="collapsed"
         @click="isExpanded = true"
-        class="bg-primary-600 rounded-l-3xl px-2 py-3.5 w-[40px] shadow-[-4px_4px_16px_rgba(30,64,175,0.25)] flex flex-col items-center gap-2 cursor-pointer hover:bg-primary-700 transition-colors"
+        class="bg-primary-600 rounded-l-3xl px-2 py-3.5 w-[40px] shadow-[-4px_4px_16px_rgba(30,64,175,0.25)] flex flex-col items-center gap-2 cursor-pointer hover:bg-primary-700 transition-colors origin-right"
         :aria-label="$t('sidebar_collapsed_label')"
       >
-        <ChevronRight class="w-4 h-4 text-white" />
+        <ChevronLeft class="w-4 h-4 text-white" />
         <span
           class="text-primary-200 text-[9px] font-semibold"
           style="writing-mode: vertical-rl; letter-spacing: 0.15em;"
@@ -104,7 +104,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Phone, MessageCircle, ArrowUp, ChevronRight, X } from 'lucide-vue-next'
+import { Phone, MessageCircle, ArrowUp, ChevronLeft, ChevronsRight } from 'lucide-vue-next'
 
 const isExpanded = ref(true)
 const showQrCode = ref(false)
