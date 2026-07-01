@@ -49,7 +49,13 @@ function localApiPlugin() {
 export default defineConfig(({ mode }) => {
   // 读取 .env 中所有变量（含非 VITE_ 前缀），注入到 process.env 供 api/contact.js 使用
   const env = loadEnv(mode, process.cwd(), '')
-  if (env.RESEND_API_KEY) process.env.RESEND_API_KEY = env.RESEND_API_KEY
+  const serverKeys = [
+    'ALIYUN_DM_ACCESS_KEY_ID',
+    'ALIYUN_DM_ACCESS_KEY_SECRET',
+    'ALIYUN_DM_ACCOUNT_NAME',
+    'ALIYUN_DM_FROM_ALIAS',
+  ]
+  serverKeys.forEach((k) => { if (env[k]) process.env[k] = env[k] })
 
   return {
     plugins: [vue(), localApiPlugin()],

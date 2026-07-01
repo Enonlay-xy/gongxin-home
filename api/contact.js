@@ -1,20 +1,24 @@
+import Dm, { SingleSendMailRequest } from '@alicloud/dm20151123'
+import { Config } from '@alicloud/openapi-client'
+
+function json(status, data) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
 export default async function handler(req) {
   // 仅允许 POST
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ success: false, message: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return json(405, { success: false, message: 'Method not allowed' })
   }
 
   let body
   try {
     body = await req.json()
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return json(400, { success: false, message: 'Invalid JSON' })
   }
 
   const name = (body.name || '').toString().trim()
@@ -23,62 +27,46 @@ export default async function handler(req) {
 
   // 必填校验：姓名、电话
   if (!name || !phone) {
-    return new Response(JSON.stringify({ success: false, message: '姓名与电话为必填项' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return json(400, { success: false, message: '姓名与电话为必填项' })
   }
 
   // 长度上限校验
   if (name.length > 50 || phone.length > 20 || message.length > 1000) {
-    return new Response(JSON.stringify({ success: false, message: '字段长度超出限制' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return json(400, { success: false, message: '字段长度超出限制' })
   }
 
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    return new Response(JSON.stringify({ success: false, message: '邮件服务未配置' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
+  const {
+    ALIYUN_DM_ACCESS_KEY_ID: accessKeyId,
+    ALIYUN_DM_ACCESS_KEY_SECRET: accessKeySecret,
+    ALIYUN_DM_ACCOUNT_NAME: accountName,
+    ALIYUN_DM_FROM_ALIAS: fromAlias,
+  } = process.env
+
+  if (!accessKeyId || !accessKeySecret || !accountName) {
+    return json(500, { success: false, message: '邮件服务未配置' })
   }
 
-  // 组装邮件：标题固定"公信官网留言"，正文两行（姓名  电话 / 留言）
-  const emailPayload = {
-    from: 'onboarding@resend.dev',
-    to: 'alfie@gongxintest.com',
+  // 组装阿里云 DirectMail 客户端
+  const config = new Config({ accessKeyId, accessKeySecret })
+  const client = new Dm(config)
+  const request = new SingleSendMailRequest({
+    accountName,
+    addressType: 1,
+    replyToAddress: false,
+    toAddress: 'alfie@gongxintest.com',
+    fromAlias,
     subject: '公信官网留言',
-    text: `${name}  ${phone}\n${message}`,
-  }
+    textBody: `${name}  ${phone}\n${message}`,
+  })
 
   try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(emailPayload),
-    })
-
-    if (!res.ok) {
-      const errText = await res.text()
-      return new Response(JSON.stringify({ success: false, message: '邮件发送失败', detail: errText }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    await client.singleSendMail(request)
+    return json(200, { success: true })
   } catch (err) {
-    return new Response(JSON.stringify({ success: false, message: '请求异常', detail: String(err) }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
+    return json(502, {
+      success: false,
+      message: '邮件发送失败',
+      detail: String(err.message || err),
     })
   }
 }
