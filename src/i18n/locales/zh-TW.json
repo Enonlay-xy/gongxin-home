@@ -31,10 +31,10 @@
   "banner_4_btn": "了解能力",
   "banner_5_title": "專業檢測，值得信賴",
   "banner_5_subtitle": "CNAS 認可實驗室，全方位檢測認證服務",
-  "banner_5_btn": "免費諮詢",
+  "banner_5_btn": "立即諮詢",
   "banner_6_title": "一站式認證解決方案",
   "banner_6_subtitle": "從檢測到認證，全流程專業服務助力企業出海",
-  "banner_6_btn": "立即諮詢",
+  "banner_6_btn": "典型案例",
   "banner_prev": "上一張",
   "banner_next": "下一張",
 
@@ -198,11 +198,20 @@
   "cta_form_message_placeholder": "請簡要描述您的檢測認證需求",
   "cta_form_submit": "提交留言",
   "cta_form_success": "感謝您的留言，我們會盡快與您聯繫！",
+  "cta_form_loading": "提交中...",
+  "cta_form_error": "提交失敗，請稍後重試",
+  "cta_form_required_hint": "* 為必填項",
 
   "footer_company": "東莞市公信檢測技術有限公司",
   "footer_company_en": "Dongguan Gongxin Testing Technology Co., Ltd.",
   "footer_quick_links": "快速連結",
   "footer_contact": "聯繫方式",
   "footer_copyright": "© 2024 東莞市公信檢測技術有限公司. All rights reserved.",
-  "footer_icp": "備案號：[待提供]"
+  "footer_icp": "備案號：[待提供]",
+
+  "sidebar_contact": "聯繫我們",
+  "sidebar_wechat": "微信諮詢",
+  "sidebar_back_top": "回到頂部",
+  "sidebar_collapsed_label": "在線諮詢",
+  "sidebar_qr_tip": "掃碼添加微信諮詢"
 }

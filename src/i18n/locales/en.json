@@ -31,10 +31,10 @@
   "banner_4_btn": "View Capabilities",
   "banner_5_title": "Professional Testing, Trusted Results",
   "banner_5_subtitle": "CNAS Accredited Lab, Comprehensive Testing & Certification Services",
-  "banner_5_btn": "Free Consultation",
+  "banner_5_btn": "Contact Now",
   "banner_6_title": "One-Stop Certification Solutions",
   "banner_6_subtitle": "Full-Process Professional Services from Testing to Certification",
-  "banner_6_btn": "Contact Us",
+  "banner_6_btn": "Case Studies",
   "banner_prev": "Previous",
   "banner_next": "Next",
 
@@ -198,11 +198,20 @@
   "cta_form_message_placeholder": "Please briefly describe your testing and certification needs",
   "cta_form_submit": "Submit",
   "cta_form_success": "Thank you for your message, we will contact you soon!",
+  "cta_form_loading": "Submitting...",
+  "cta_form_error": "Submission failed, please try again later",
+  "cta_form_required_hint": "* Required",
 
   "footer_company": "Dongguan Gongxin Testing Technology Co., Ltd.",
   "footer_company_en": "Dongguan Gongxin Testing Technology Co., Ltd.",
   "footer_quick_links": "Quick Links",
   "footer_contact": "Contact",
   "footer_copyright": "© 2024 Dongguan Gongxin Testing Technology Co., Ltd. All rights reserved.",
-  "footer_icp": "ICP: [TBD]"
+  "footer_icp": "ICP: [TBD]",
+
+  "sidebar_contact": "Contact Us",
+  "sidebar_wechat": "WeChat",
+  "sidebar_back_top": "Back to Top",
+  "sidebar_collapsed_label": "Consult",
+  "sidebar_qr_tip": "Scan to add WeChat"
 }
