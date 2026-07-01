@@ -58,12 +58,16 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import banner5 from '../assets/images/banner/banner5.jpg'
+import banner6 from '../assets/images/banner/banner6.jpg'
 import banner1 from '../assets/images/banner/banner1.jpg'
 import banner2 from '../assets/images/banner/banner2.jpg'
 import banner3 from '../assets/images/banner/banner3.png'
 import banner4 from '../assets/images/banner/banner4.png'
 
 const slides = [
+  { image: banner5, titleKey: 'banner_5_title', subtitleKey: 'banner_5_subtitle', btnKey: 'banner_5_btn', btnHref: '#about' },
+  { image: banner6, titleKey: 'banner_6_title', subtitleKey: 'banner_6_subtitle', btnKey: 'banner_6_btn', btnHref: '#products' },
   { image: banner1, titleKey: 'banner_1_title', subtitleKey: 'banner_1_subtitle', btnKey: 'banner_1_btn', btnHref: '#about' },
   { image: banner2, titleKey: 'banner_2_title', subtitleKey: 'banner_2_subtitle', btnKey: 'banner_2_btn', btnHref: '#products' },
   { image: banner3, titleKey: 'banner_3_title', subtitleKey: 'banner_3_subtitle', btnKey: 'banner_3_btn', btnHref: '#qualifications' },

@@ -31,15 +31,19 @@ import field1 from '../assets/images/fields/field1.jpg'
 import field2 from '../assets/images/fields/field2.jpg'
 import field3 from '../assets/images/fields/field3.jpg'
 import field4 from '../assets/images/fields/field4.jpg'
+import field5 from '../assets/images/fields/field5.jpg'
+import field6 from '../assets/images/fields/field6.jpg'
+import field7 from '../assets/images/fields/field7.jpg'
+import field8 from '../assets/images/fields/field8.jpg'
 
 const fields = [
   { nameKey: 'field_1_name', descKey: 'field_1_desc', image: field1, icon: markRaw(Cpu) },
   { nameKey: 'field_2_name', descKey: 'field_2_desc', image: field2, icon: markRaw(Video) },
   { nameKey: 'field_3_name', descKey: 'field_3_desc', image: field3, icon: markRaw(Battery) },
   { nameKey: 'field_4_name', descKey: 'field_4_desc', image: field4, icon: markRaw(Cog) },
-  { nameKey: 'field_5_name', descKey: 'field_5_desc', image: null, icon: markRaw(Lightbulb) },
-  { nameKey: 'field_6_name', descKey: 'field_6_desc', image: null, icon: markRaw(ToyBrick) },
-  { nameKey: 'field_7_name', descKey: 'field_7_desc', image: null, icon: markRaw(Building2) },
-  { nameKey: 'field_8_name', descKey: 'field_8_desc', image: null, icon: markRaw(BatteryCharging) }
+  { nameKey: 'field_5_name', descKey: 'field_5_desc', image: field5, icon: markRaw(Lightbulb) },
+  { nameKey: 'field_6_name', descKey: 'field_6_desc', image: field6, icon: markRaw(ToyBrick) },
+  { nameKey: 'field_7_name', descKey: 'field_7_desc', image: field7, icon: markRaw(Building2) },
+  { nameKey: 'field_8_name', descKey: 'field_8_desc', image: field8, icon: markRaw(BatteryCharging) }
 ]
 </script>
