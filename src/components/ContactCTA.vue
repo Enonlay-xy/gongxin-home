@@ -49,28 +49,31 @@
           <h3 class="text-xl font-semibold mb-6">{{ $t('cta_form_title') }}</h3>
           <form @submit.prevent="handleSubmit" class="bg-white/10 backdrop-blur rounded-xl p-6 space-y-4">
             <div>
-              <label class="block text-sm text-primary-200 mb-1">{{ $t('cta_form_name') }}</label>
+              <label class="block text-sm text-primary-200 mb-1">{{ $t('cta_form_name') }}<span class="text-red-500 ml-0.5">*</span></label>
               <input v-model="form.name" type="text" required
-                     class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent"
+                     :class="['w-full px-4 py-2 bg-white/10 border rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent', errors.name ? 'border-red-500 animate-blink' : 'border-white/20']"
+                     @input="errors.name = false"
                      :placeholder="$t('cta_form_name_placeholder')" />
             </div>
             <div>
-              <label class="block text-sm text-primary-200 mb-1">{{ $t('cta_form_phone') }}</label>
+              <label class="block text-sm text-primary-200 mb-1">{{ $t('cta_form_phone') }}<span class="text-red-500 ml-0.5">*</span></label>
               <input v-model="form.phone" type="tel" required
-                     class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent"
+                     :class="['w-full px-4 py-2 bg-white/10 border rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent', errors.phone ? 'border-red-500 animate-blink' : 'border-white/20']"
+                     @input="errors.phone = false"
                      :placeholder="$t('cta_form_phone_placeholder')" />
             </div>
             <div>
               <label class="block text-sm text-primary-200 mb-1">{{ $t('cta_form_message') }}</label>
-              <textarea v-model="form.message" rows="4" required
+              <textarea v-model="form.message" rows="4"
                         class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent"
                         :placeholder="$t('cta_form_message_placeholder')"></textarea>
             </div>
-            <button type="submit"
-                    class="w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-accent-dark transition-colors">
-              {{ $t('cta_form_submit') }}
+            <button type="submit" :disabled="loading"
+                    :class="['w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-accent-dark transition-colors', loading ? 'opacity-60 cursor-not-allowed' : '']">
+              {{ loading ? $t('cta_form_loading') : $t('cta_form_submit') }}
             </button>
             <p v-if="submitted" class="text-center text-accent-light">{{ $t('cta_form_success') }}</p>
+            <p v-if="error" class="text-center text-red-300">{{ $t('cta_form_error') }}</p>
           </form>
         </div>
       </div>
@@ -84,12 +87,33 @@ import { Phone, Mail, Globe, MapPin } from 'lucide-vue-next'
 
 const form = reactive({ name: '', phone: '', message: '' })
 const submitted = ref(false)
+const loading = ref(false)
+const error = ref(false)
+const errors = reactive({ name: false, phone: false })
 
-const handleSubmit = () => {
-  submitted.value = true
-  form.name = ''
-  form.phone = ''
-  form.message = ''
-  setTimeout(() => { submitted.value = false }, 3000)
+const handleSubmit = async () => {
+  errors.name = !form.name.trim()
+  errors.phone = !form.phone.trim()
+  if (errors.name || errors.phone) return
+
+  loading.value = true
+  error.value = false
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: form.name, phone: form.phone, message: form.message }),
+    })
+    if (!res.ok) throw new Error('failed')
+    submitted.value = true
+    form.name = ''
+    form.phone = ''
+    form.message = ''
+    setTimeout(() => { submitted.value = false }, 3000)
+  } catch {
+    error.value = true
+  } finally {
+    loading.value = false
+  }
 }
 </script>

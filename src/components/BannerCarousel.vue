@@ -66,8 +66,8 @@ import banner3 from '../assets/images/banner/banner3.png'
 import banner4 from '../assets/images/banner/banner4.png'
 
 const slides = [
-  { image: banner5, titleKey: 'banner_5_title', subtitleKey: 'banner_5_subtitle', btnKey: 'banner_5_btn', btnHref: '#about' },
-  { image: banner6, titleKey: 'banner_6_title', subtitleKey: 'banner_6_subtitle', btnKey: 'banner_6_btn', btnHref: '#products' },
+  { image: banner5, titleKey: 'banner_5_title', subtitleKey: 'banner_5_subtitle', btnKey: 'banner_5_btn', btnHref: '#contact' },
+  { image: banner6, titleKey: 'banner_6_title', subtitleKey: 'banner_6_subtitle', btnKey: 'banner_6_btn', btnHref: '#cases' },
   { image: banner1, titleKey: 'banner_1_title', subtitleKey: 'banner_1_subtitle', btnKey: 'banner_1_btn', btnHref: '#about' },
   { image: banner2, titleKey: 'banner_2_title', subtitleKey: 'banner_2_subtitle', btnKey: 'banner_2_btn', btnHref: '#products' },
   { image: banner3, titleKey: 'banner_3_title', subtitleKey: 'banner_3_subtitle', btnKey: 'banner_3_btn', btnHref: '#qualifications' },

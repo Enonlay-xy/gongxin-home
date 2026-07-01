@@ -1,7 +1,7 @@
 <template>
   <section id="strengths" class="py-20 bg-primary-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <SectionTitle titleKey="strengths_title" subtitleKey="strengths_subtitle" />
+      <SectionTitle titleKey="strengths_title" subtitleKey="strengths_subtitle" titleClass="text-white" subtitleClass="text-primary-100" />
       <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-12">
         <div v-for="item in strengths" :key="item.valueKey"
              class="bg-white/10 backdrop-blur rounded-xl p-6 text-center">

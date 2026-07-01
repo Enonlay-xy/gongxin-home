@@ -31,10 +31,10 @@
   "banner_4_btn": "了解能力",
   "banner_5_title": "专业检测，值得信赖",
   "banner_5_subtitle": "CNAS 认可实验室，全方位检测认证服务",
-  "banner_5_btn": "免费咨询",
+  "banner_5_btn": "立即咨询",
   "banner_6_title": "一站式认证解决方案",
   "banner_6_subtitle": "从检测到认证，全流程专业服务助力企业出海",
-  "banner_6_btn": "立即咨询",
+  "banner_6_btn": "典型案例",
   "banner_prev": "上一张",
   "banner_next": "下一张",
 
@@ -198,11 +198,20 @@
   "cta_form_message_placeholder": "请简要描述您的检测认证需求",
   "cta_form_submit": "提交留言",
   "cta_form_success": "感谢您的留言，我们会尽快与您联系！",
+  "cta_form_loading": "提交中...",
+  "cta_form_error": "提交失败，请稍后重试",
+  "cta_form_required_hint": "* 为必填项",
 
   "footer_company": "东莞市公信检测技术有限公司",
   "footer_company_en": "Dongguan Gongxin Testing Technology Co., Ltd.",
   "footer_quick_links": "快速链接",
   "footer_contact": "联系方式",
   "footer_copyright": "© 2024 东莞市公信检测技术有限公司. All rights reserved.",
-  "footer_icp": "备案号：[待提供]"
+  "footer_icp": "备案号：[待提供]",
+
+  "sidebar_contact": "联系我们",
+  "sidebar_wechat": "微信咨询",
+  "sidebar_back_top": "回到顶部",
+  "sidebar_collapsed_label": "在线咨询",
+  "sidebar_qr_tip": "扫码添加微信咨询"
 }
