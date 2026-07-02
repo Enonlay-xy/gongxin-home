@@ -200,6 +200,8 @@
   "cta_form_success": "感謝您的留言，我們會盡快與您聯繫！",
   "cta_form_loading": "提交中...",
   "cta_form_error": "提交失敗，請稍後重試",
+  "cta_form_error_turnstile": "人機驗證失敗，請刷新頁面重試",
+  "cta_form_error_network": "網路異常，請稍後重試",
   "cta_form_required_hint": "* 為必填項",
 
   "footer_company": "東莞市公信檢測技術有限公司",

@@ -200,6 +200,8 @@
   "cta_form_success": "Thank you for your message, we will contact you soon!",
   "cta_form_loading": "Submitting...",
   "cta_form_error": "Submission failed, please try again later",
+  "cta_form_error_turnstile": "Verification failed, please refresh the page and retry",
+  "cta_form_error_network": "Network error, please try again later",
   "cta_form_required_hint": "* Required",
 
   "footer_company": "Dongguan Gongxin Testing Technology Co., Ltd.",

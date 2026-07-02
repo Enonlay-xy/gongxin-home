@@ -75,7 +75,7 @@
               {{ (loading || verifying) ? $t('cta_form_loading') : $t('cta_form_submit') }}
             </button>
             <p v-if="submitted" class="text-center text-accent-light">{{ $t('cta_form_success') }}</p>
-            <p v-if="error" class="text-center text-red-300">{{ $t('cta_form_error') }}</p>
+            <p v-if="error" class="text-center text-red-300">{{ $t(errorType === 'turnstile' ? 'cta_form_error_turnstile' : 'cta_form_error_network') }}</p>
           </form>
         </div>
       </div>
@@ -91,6 +91,8 @@ const form = reactive({ name: '', phone: '', message: '' })
 const submitted = ref(false)
 const loading = ref(false)
 const error = ref(false)
+// 错误类型：'turnstile' = 人机验证失败 | 'network' = 网络/服务端错误（含速率限制）
+const errorType = ref('network')
 const errors = reactive({ name: false, phone: false })
 
 // ─── Cloudflare Turnstile 人机验证（Invisible 模式）───
@@ -136,11 +138,13 @@ function renderTurnstile() {
     'expired-callback': () => {
       turnstileToken.value = ''
       verifying.value = false
+      errorType.value = 'turnstile'
       error.value = true
     },
     'error-callback': () => {
       turnstileToken.value = ''
       verifying.value = false
+      errorType.value = 'turnstile'
       error.value = true
     },
   })
@@ -199,6 +203,8 @@ const submitForm = async () => {
         turnstileToken: turnstileToken.value,
       }),
     })
+    // 所有非 2xx 响应（含 429 速率限制、403 人机验证失败、5xx 服务异常）
+    // 统一展示为"网络异常，请稍后重试"，避免泄露服务端状态
     if (!res.ok) throw new Error('failed')
     submitted.value = true
     form.name = ''
@@ -207,6 +213,7 @@ const submitForm = async () => {
     resetTurnstile()
     setTimeout(() => { submitted.value = false }, 3000)
   } catch {
+    errorType.value = 'network'
     error.value = true
     resetTurnstile()
   } finally {
