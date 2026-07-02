@@ -1,0 +1,28 @@
+.gitignore
+  s_45fe524c265ee3::t_b348a4f1e1badc 28-29
+api/contact.js
+  s_45fe524c265ee3::t_bda08c4810e7d1 4-24,27-31,35-111,118-134,142-151,163-168,174,177-178,183-186,191,201-203
+src/i18n/index.js
+  s_45fe524c265ee3::t_5a0c17c6b67c68 29-41,47
+vercel.json
+  s_45fe524c265ee3::t_2f0561f37a669d 1-18
+vite.config.js
+  s_45fe524c265ee3::t_4d4b5951c0e240 40-41,44,52,59-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "fccd76906b0d00d23508c3821a19bfaf6977cb04",
+  "prompts": {},
+  "logical_commit_id": "fccd76906b0d00d23508c3821a19bfaf6977cb04",
+  "sessions": {
+    "s_45fe524c265ee3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f20d3-8b45-77d1-aedd-9cae86054475",
+        "model": "gpt-5.5"
+      },
+      "human_author": "laihao <laihao@bigo.sg>"
+    }
+  }
+}
