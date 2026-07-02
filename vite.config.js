@@ -13,7 +13,8 @@ function localApiPlugin() {
 
         const handlerUrl = fileURLToPath(new URL('./api/contact.js', import.meta.url))
         const mod = await import(handlerUrl + '?t=' + Date.now())
-        const handler = mod.default
+        // api/contact.js 使用 fetch Web Standard export，default 是 { fetch }
+        const handler = mod.default?.fetch || mod.default
 
         const chunks = []
         for await (const c of req) chunks.push(c)
