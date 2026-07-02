@@ -16,6 +16,8 @@ function getAllowedOrigins() {
     'https://gongxin-home.vercel.app',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://localhost:5174',
+    'http://127.0.0.1:5174',
     ...extra,
   ]
 }
@@ -188,8 +190,15 @@ export default {
     }
 
     // 组装阿里云 DirectMail 客户端
-    const config = new Config({ accessKeyId, accessKeySecret })
-    const client = new Dm(config)
+    // @alicloud/dm20151123 的 default 导出是命名空间对象，Client 类挂在 .default 上
+    // DirectMail 服务区域为 cn-hangzhou
+    const config = new Config({
+      accessKeyId,
+      accessKeySecret,
+      regionId: 'cn-hangzhou',
+      endpoint: 'dm.aliyuncs.com',
+    })
+    const client = new Dm.default(config)
     const request = new SingleSendMailRequest({
       accountName,
       addressType: 1,

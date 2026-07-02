@@ -58,6 +58,7 @@ export default defineConfig(({ mode }) => {
     'ALIYUN_DM_ACCOUNT_NAME',
     'ALIYUN_DM_FROM_ALIAS',
     'ALIYUN_DM_TO_ADDRESS',
+    'TURNSTILE_ENABLED',
     'TURNSTILE_SECRET_KEY',
     'ALLOWED_ORIGINS',
   ]
