@@ -26,23 +26,25 @@ function storeLocale(locale) {
   }
 }
 
-function detectLocaleByCountry(countryCode) {
-  if (countryCode === 'CN') return 'zh-CN'
-  if (countryCode === 'TW' || countryCode === 'HK' || countryCode === 'MO') return 'zh-TW'
-  return 'en'
+// 基于浏览器语言偏好检测区域设置（纯客户端，不泄露 IP 给第三方）
+function detectLocaleFromNavigator() {
+  const lang = (navigator.language || '').toLowerCase()
+  const languages = (navigator.languages || []).map((l) => l.toLowerCase())
+
+  // 依次检查所有语言偏好
+  for (const l of languages.concat(lang)) {
+    if (l.startsWith('zh-cn') || l.startsWith('zh-hans') || l === 'zh') return 'zh-CN'
+    if (l.startsWith('zh-tw') || l.startsWith('zh-hant') || l.startsWith('zh-hk') || l.startsWith('zh-mo')) return 'zh-TW'
+    if (l.startsWith('zh')) return 'zh-CN'
+  }
+
+  return defaultLocale
 }
 
 async function detectLocale() {
   const stored = getStoredLocale()
   if (stored) return stored
-
-  try {
-    const response = await fetch('https://ipapi.co/json/')
-    const data = await response.json()
-    return detectLocaleByCountry(data.country_code)
-  } catch (e) {
-    return defaultLocale
-  }
+  return detectLocaleFromNavigator()
 }
 
 const i18n = createI18n({

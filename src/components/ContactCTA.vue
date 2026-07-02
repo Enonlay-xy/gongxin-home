@@ -68,6 +68,7 @@
                         class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent"
                         :placeholder="$t('cta_form_message_placeholder')"></textarea>
             </div>
+            <div v-if="turnstileEnabled" ref="turnstileContainer" class="flex justify-center min-h-[65px]"></div>
             <button type="submit" :disabled="loading"
                     :class="['w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-accent-dark transition-colors', loading ? 'opacity-60 cursor-not-allowed' : '']">
               {{ loading ? $t('cta_form_loading') : $t('cta_form_submit') }}
@@ -82,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onUnmounted, nextTick } from 'vue'
 import { Phone, Mail, Globe, MapPin } from 'lucide-vue-next'
 
 const form = reactive({ name: '', phone: '', message: '' })
@@ -91,10 +92,74 @@ const loading = ref(false)
 const error = ref(false)
 const errors = reactive({ name: false, phone: false })
 
+// ─── Cloudflare Turnstile 人机验证 ───
+const turnstileToken = ref('')
+const turnstileContainer = ref(null)
+const turnstileWidgetId = ref(null)
+const turnstileSiteKey = '0x4AAAAAADuWa5HutbGUTG45'
+const turnstileEnabled = !!turnstileSiteKey
+
+function loadTurnstileScript() {
+  return new Promise((resolve) => {
+    if (window.turnstile) {
+      resolve()
+      return
+    }
+    const existing = document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]')
+    if (existing) {
+      existing.addEventListener('load', resolve)
+      return
+    }
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.defer = true
+    script.onload = resolve
+    document.head.appendChild(script)
+  })
+}
+
+function renderTurnstile() {
+  if (!window.turnstile || !turnstileContainer.value || !turnstileSiteKey) return
+  turnstileWidgetId.value = window.turnstile.render(turnstileContainer.value, {
+    sitekey: turnstileSiteKey,
+    callback: (token) => { turnstileToken.value = token },
+    'expired-callback': () => { turnstileToken.value = '' },
+    'error-callback': () => { turnstileToken.value = '' },
+  })
+}
+
+function resetTurnstile() {
+  turnstileToken.value = ''
+  if (turnstileWidgetId.value !== null && window.turnstile) {
+    window.turnstile.reset(turnstileWidgetId.value)
+  }
+}
+
+onMounted(async () => {
+  if (turnstileEnabled) {
+    await loadTurnstileScript()
+    await nextTick()
+    renderTurnstile()
+  }
+})
+
+onUnmounted(() => {
+  if (turnstileWidgetId.value !== null && window.turnstile) {
+    window.turnstile.remove(turnstileWidgetId.value)
+  }
+})
+
 const handleSubmit = async () => {
   errors.name = !form.name.trim()
   errors.phone = !form.phone.trim()
   if (errors.name || errors.phone) return
+
+  // Turnstile 验证（如已启用）
+  if (turnstileEnabled && !turnstileToken.value) {
+    error.value = true
+    return
+  }
 
   loading.value = true
   error.value = false
@@ -102,16 +167,23 @@ const handleSubmit = async () => {
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: form.name, phone: form.phone, message: form.message }),
+      body: JSON.stringify({
+        name: form.name,
+        phone: form.phone,
+        message: form.message,
+        turnstileToken: turnstileToken.value,
+      }),
     })
     if (!res.ok) throw new Error('failed')
     submitted.value = true
     form.name = ''
     form.phone = ''
     form.message = ''
+    resetTurnstile()
     setTimeout(() => { submitted.value = false }, 3000)
   } catch {
     error.value = true
+    resetTurnstile()
   } finally {
     loading.value = false
   }

@@ -37,9 +37,11 @@ function localApiPlugin() {
           response.headers.forEach((v, k) => res.setHeader(k, v))
           res.end(await response.text())
         } catch (e) {
+          // 详细错误仅记录到终端日志，不返回给客户端
+          console.error('[dev api/contact error]', e)
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ success: false, message: String(e) }))
+          res.end(JSON.stringify({ success: false, message: '服务器内部错误' }))
         }
       })
     },
@@ -47,13 +49,16 @@ function localApiPlugin() {
 }
 
 export default defineConfig(({ mode }) => {
-  // 读取 .env 中所有变量（含非 VITE_ 前缀），注入到 process.env 供 api/contact.js 使用
+  // 读取 .env 中服务端变量（仅复制白名单中的 key 到 process.env，不暴露到客户端 bundle）
   const env = loadEnv(mode, process.cwd(), '')
   const serverKeys = [
     'ALIYUN_DM_ACCESS_KEY_ID',
     'ALIYUN_DM_ACCESS_KEY_SECRET',
     'ALIYUN_DM_ACCOUNT_NAME',
     'ALIYUN_DM_FROM_ALIAS',
+    'ALIYUN_DM_TO_ADDRESS',
+    'TURNSTILE_SECRET_KEY',
+    'ALLOWED_ORIGINS',
   ]
   serverKeys.forEach((k) => { if (env[k]) process.env[k] = env[k] })
 
