@@ -97,13 +97,13 @@ const errors = reactive({ name: false, phone: false })
 
 // ─── Cloudflare Turnstile 人机验证（Invisible 模式）───
 // 注意：此 Site Key 需在 Cloudflare 控制台创建为 Invisible 模式的 Widget
-// 通过环境变量 VITE_TURNSTILE_ENABLED 控制是否启用（'true' 启用，其他值或未配置则关闭）
+// 通过环境变量 VITE_TURNSTILE_ENABLED 控制是否启用（默认关闭，'true' 启用）
 const turnstileToken = ref('')
 const verifying = ref(false) // 正在执行人机验证
 const turnstileContainer = ref(null)
 const turnstileWidgetId = ref(null)
 const turnstileSiteKey = '0x4AAAAAADugdJ2dzGh6zzFm'
-const turnstileEnabled = import.meta.env.VITE_TURNSTILE_ENABLED === 'true' && !!turnstileSiteKey
+const turnstileEnabled = (import.meta.env.VITE_TURNSTILE_ENABLED ?? 'false') === 'true' && !!turnstileSiteKey
 
 function loadTurnstileScript() {
   return new Promise((resolve) => {

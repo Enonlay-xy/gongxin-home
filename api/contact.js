@@ -92,8 +92,8 @@ function verifyOrigin(req) {
 }
 
 async function verifyTurnstile(token, ip) {
-  // 通过环境变量 TURNSTILE_ENABLED 控制是否启用验证（'true' 启用，其他值或未配置则关闭）
-  if (process.env.TURNSTILE_ENABLED !== 'true') return true
+  // 通过环境变量 TURNSTILE_ENABLED 控制是否启用验证（默认关闭，'true' 启用）
+  if ((process.env.TURNSTILE_ENABLED ?? 'false') !== 'true') return true
   const secret = process.env.TURNSTILE_SECRET_KEY
   if (!secret) return false
   if (!token) return false
