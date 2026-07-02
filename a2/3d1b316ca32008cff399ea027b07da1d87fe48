@@ -1,0 +1,20 @@
+vercel.json
+  s_e10bedcda4dd82::t_47283a6b2c038c 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "a23d1b316ca32008cff399ea027b07da1d87fe48",
+  "prompts": {},
+  "logical_commit_id": "a23d1b316ca32008cff399ea027b07da1d87fe48",
+  "sessions": {
+    "s_e10bedcda4dd82": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eca3e-518c-7d81-b573-e9980f11cb7f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "laihao <laihao@bigo.sg>"
+    }
+  }
+}
