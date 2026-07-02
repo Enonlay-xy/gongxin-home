@@ -2,8 +2,8 @@ import Dm, { SingleSendMailRequest } from '@alicloud/dm20151123'
 import { Config } from '@alicloud/openapi-client'
 
 // ─── 速率限制（内存级，per-instance；生产环境建议升级为 Vercel KV / Upstash Redis）───
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000 // 10 分钟窗口
-const RATE_LIMIT_MAX = 3 // 每个 IP 每窗口最多 3 次
+const RATE_LIMIT_WINDOW_MS = 1 * 60 * 1000 // 1 分钟窗口
+const RATE_LIMIT_MAX = 2 // 每个 IP 每窗口最多 2 次
 const rateLimitMap = new Map() // key: ip → { count, firstRequestTime }
 
 // ─── 来源白名单 ───

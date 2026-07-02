@@ -75,7 +75,11 @@
               {{ (loading || verifying) ? $t('cta_form_loading') : $t('cta_form_submit') }}
             </button>
             <p v-if="submitted" class="text-center text-accent-light">{{ $t('cta_form_success') }}</p>
-            <p v-if="error" class="text-center text-red-300">{{ $t(errorType === 'turnstile' ? 'cta_form_error_turnstile' : 'cta_form_error_network') }}</p>
+            <p v-if="error" class="text-center text-red-300">{{ $t(
+              errorType === 'turnstile' ? 'cta_form_error_turnstile' :
+              errorType === 'rate_limit' ? 'cta_form_error_rate_limit' :
+              'cta_form_error_network'
+            ) }}</p>
           </form>
         </div>
       </div>
@@ -204,17 +208,22 @@ const submitForm = async () => {
         turnstileToken: turnstileToken.value,
       }),
     })
-    // 所有非 2xx 响应（含 429 速率限制、403 人机验证失败、5xx 服务异常）
-    // 统一展示为"网络异常，请稍后重试"，避免泄露服务端状态
-    if (!res.ok) throw new Error('failed')
+    if (!res.ok) {
+      // 429 速率限制单独提示，其他错误统一为网络异常
+      errorType.value = res.status === 429 ? 'rate_limit' : 'network'
+      throw new Error('failed')
+    }
     submitted.value = true
     form.name = ''
     form.phone = ''
     form.message = ''
     resetTurnstile()
     setTimeout(() => { submitted.value = false }, 3000)
-  } catch {
-    errorType.value = 'network'
+  } catch (e) {
+    // catch 中仅在 errorType 未设置时兜底为 network
+    if (!errorType.value || (errorType.value !== 'turnstile' && errorType.value !== 'rate_limit')) {
+      errorType.value = 'network'
+    }
     error.value = true
     resetTurnstile()
   } finally {

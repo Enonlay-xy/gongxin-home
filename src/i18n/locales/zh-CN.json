@@ -202,6 +202,7 @@
   "cta_form_error": "提交失败，请稍后重试",
   "cta_form_error_turnstile": "人机验证失败，请刷新页面重试",
   "cta_form_error_network": "网络异常，请稍后重试",
+  "cta_form_error_rate_limit": "操作过于频繁，请稍后再试",
   "cta_form_required_hint": "* 为必填项",
 
   "footer_company": "东莞市公信检测技术有限公司",
