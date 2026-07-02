@@ -185,7 +185,12 @@ export default {
     } = process.env
 
     if (!accessKeyId || !accessKeySecret || !accountName || !toAddress) {
-      console.error('邮件服务环境变量未配置完整')
+      const missing = []
+      if (!accessKeyId) missing.push('ALIYUN_DM_ACCESS_KEY_ID')
+      if (!accessKeySecret) missing.push('ALIYUN_DM_ACCESS_KEY_SECRET')
+      if (!accountName) missing.push('ALIYUN_DM_ACCOUNT_NAME')
+      if (!toAddress) missing.push('ALIYUN_DM_TO_ADDRESS')
+      console.error('邮件服务环境变量未配置完整，缺失:', missing.join(', '))
       return json(500, { success: false, message: '邮件服务未配置' })
     }
 
