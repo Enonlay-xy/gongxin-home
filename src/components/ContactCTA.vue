@@ -68,10 +68,11 @@
                         class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-primary-300 focus:ring-2 focus:ring-accent focus:border-transparent"
                         :placeholder="$t('cta_form_message_placeholder')"></textarea>
             </div>
-            <div v-if="turnstileEnabled" ref="turnstileContainer" class="flex justify-center min-h-[65px]"></div>
-            <button type="submit" :disabled="loading"
-                    :class="['w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-accent-dark transition-colors', loading ? 'opacity-60 cursor-not-allowed' : '']">
-              {{ loading ? $t('cta_form_loading') : $t('cta_form_submit') }}
+            <!-- Invisible 模式：隐藏容器，不占用布局空间 -->
+            <div ref="turnstileContainer" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);"></div>
+            <button type="submit" :disabled="loading || verifying"
+                    :class="['w-full bg-accent text-white font-semibold py-3 rounded-lg hover:bg-accent-dark transition-colors', (loading || verifying) ? 'opacity-60 cursor-not-allowed' : '']">
+              {{ (loading || verifying) ? $t('cta_form_loading') : $t('cta_form_submit') }}
             </button>
             <p v-if="submitted" class="text-center text-accent-light">{{ $t('cta_form_success') }}</p>
             <p v-if="error" class="text-center text-red-300">{{ $t('cta_form_error') }}</p>
@@ -92,8 +93,10 @@ const loading = ref(false)
 const error = ref(false)
 const errors = reactive({ name: false, phone: false })
 
-// ─── Cloudflare Turnstile 人机验证 ───
+// ─── Cloudflare Turnstile 人机验证（Invisible 模式）───
+// 注意：此 Site Key 需在 Cloudflare 控制台创建为 Invisible 模式的 Widget
 const turnstileToken = ref('')
+const verifying = ref(false) // 正在执行人机验证
 const turnstileContainer = ref(null)
 const turnstileWidgetId = ref(null)
 const turnstileSiteKey = '0x4AAAAAADuWa5HutbGUTG45'
@@ -123,9 +126,23 @@ function renderTurnstile() {
   if (!window.turnstile || !turnstileContainer.value || !turnstileSiteKey) return
   turnstileWidgetId.value = window.turnstile.render(turnstileContainer.value, {
     sitekey: turnstileSiteKey,
-    callback: (token) => { turnstileToken.value = token },
-    'expired-callback': () => { turnstileToken.value = '' },
-    'error-callback': () => { turnstileToken.value = '' },
+    appearance: 'execute', // Invisible：通过 execute() 主动触发，需要交互时才弹出挑战
+    callback: (token) => {
+      turnstileToken.value = token
+      verifying.value = false
+      // 验证通过后自动继续提交
+      submitForm()
+    },
+    'expired-callback': () => {
+      turnstileToken.value = ''
+      verifying.value = false
+      error.value = true
+    },
+    'error-callback': () => {
+      turnstileToken.value = ''
+      verifying.value = false
+      error.value = true
+    },
   })
 }
 
@@ -154,13 +171,21 @@ const handleSubmit = async () => {
   errors.name = !form.name.trim()
   errors.phone = !form.phone.trim()
   if (errors.name || errors.phone) return
+  error.value = false
 
-  // Turnstile 验证（如已启用）
+  // Invisible 模式：首次提交时主动触发验证，验证通过后由 callback 自动调用 submitForm
   if (turnstileEnabled && !turnstileToken.value) {
-    error.value = true
+    verifying.value = true
+    if (turnstileWidgetId.value !== null && window.turnstile) {
+      window.turnstile.execute(turnstileWidgetId.value)
+    }
     return
   }
 
+  await submitForm()
+}
+
+const submitForm = async () => {
   loading.value = true
   error.value = false
   try {
