@@ -99,7 +99,7 @@ const turnstileToken = ref('')
 const verifying = ref(false) // 正在执行人机验证
 const turnstileContainer = ref(null)
 const turnstileWidgetId = ref(null)
-const turnstileSiteKey = '0x4AAAAAADuWa5HutbGUTG45'
+const turnstileSiteKey = '0x4AAAAAADugdJ2dzGh6zzFm'
 const turnstileEnabled = !!turnstileSiteKey
 
 function loadTurnstileScript() {
