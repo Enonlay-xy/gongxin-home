@@ -59,9 +59,9 @@
               >
                 <!-- 小三角 -->
                 <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-r border-t border-primary-200 rotate-45"></div>
-                <!-- 二维码占位区 -->
-                <div class="w-[132px] h-[132px] bg-primary-50 rounded-lg border border-dashed border-primary-300 flex items-center justify-center mx-auto">
-                  <span class="text-primary-500 text-xs font-semibold">微信二维码</span>
+                <!-- 二维码图片 -->
+                <div class="w-[132px] h-[132px] rounded-lg overflow-hidden border border-primary-200 mx-auto">
+                  <img :src="wechatQrCode" alt="微信二维码" class="w-full h-full object-cover" />
                 </div>
                 <p class="text-primary-700 text-xs font-semibold text-center mt-2.5">{{ $t('sidebar_qr_tip') }}</p>
               </div>
@@ -105,6 +105,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Phone, MessageCircle, ArrowUp, ChevronLeft, ChevronsRight } from 'lucide-vue-next'
+import wechatQrCode from '../assets/images/wechat_qr_code.jpg'
 
 const isExpanded = ref(true)
 const showQrCode = ref(false)
