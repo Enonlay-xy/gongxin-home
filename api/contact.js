@@ -14,6 +14,8 @@ function getAllowedOrigins() {
     .filter(Boolean)
   return [
     'https://gongxin-home.vercel.app',
+    'https://www.gongxintest.com',
+    'https://gongxintest.com',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://localhost:5174',
