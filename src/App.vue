@@ -10,10 +10,16 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+import { inject } from '@vercel/analytics'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import FloatingSidebar from './components/FloatingSidebar.vue'
 import Home from './views/Home.vue'
+
+onMounted(() => {
+  inject()
+})
 </script>
 
 <style>
